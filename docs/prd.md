@@ -23,7 +23,7 @@
 - **Frontend/Backend:** Next.js 15 (App Router), TypeScript, Tailwind CSS, Shadcn UI.
 - **Database:** PostgreSQL (Supabase or Neon), Prisma ORM.
 - **Auth:** Auth.js v5 (Kakao OAuth).
-- **AI Engine:** Google Gemini Pro API (Structured Output).
+- **AI Engine:** Google Gemini Pro API (Structured Output).ㅎ
 - **Storage:** AWS S3 Compatible (Supabase Storage) - PDF 파일 관리.
 - **Payments:** PortOne or Toss Payments (Subscription Model).
 - **Deployment:** Vercel.
