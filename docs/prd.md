@@ -4,11 +4,11 @@
 
 ---
 
-# 📂 Project Context: Resumai (Master PRD)
+# 📂 Project Context: Lesume (Master PRD)
 
 ## 1. Product Overview
 
-- **Product Name:** 레스유메 (Resumai)
+- **Product Name:** 레스유메 (Lesume)
 - **Definition:** 한국어 이력서(PDF)를 입력받아 AI(LLM)를 통해 **요약(Summarization), 번역(Translation), 서식화(Formatting)**를 수행하여 Global Standard에 맞는 영문 이력서(PDF)로 변환해 주는 Micro SaaS.
 - **Core Value:** "나를 채용해야 하는 이유"를 증명하는 마케팅 브로셔 관점의 영문 이력서 자동 생성.
 - **Target Audience:**

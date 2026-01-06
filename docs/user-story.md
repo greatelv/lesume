@@ -6,7 +6,7 @@
 
 # 📋 Refined User Stories for AI Agent
 
-**Project:** Resumai (레스유메)
+**Project:** Lesume (레스유메)
 **Version:** 2.0 (Tech Spec Integrated)
 **Context:** 이 유저 스토리는 `Tech_Spec.md`의 데이터베이스 스키마 및 상태 머신(State Machine) 정의를 따른다.
 

@@ -1,14 +1,14 @@
-제안하신 PRD와 유저 스토리, 그리고 이전 대화에서 논의된 **수정 사항(구독 유예, 에러 핸들링, 분할 편집)**을 모두 반영한 **Resumai 최종 기술 명세서(Technical Specification)**입니다.
+제안하신 PRD와 유저 스토리, 그리고 이전 대화에서 논의된 **수정 사항(구독 유예, 에러 핸들링, 분할 편집)**을 모두 반영한 **Lesume 최종 기술 명세서(Technical Specification)**입니다.
 
 개발팀(혹은 미래의 본인)이 바로 개발에 착수할 수 있도록 **Database Schema**, **State Flow**, **Business Logic**을 엔지니어링 리더의 관점에서 정리했습니다.
 
 ---
 
-# 📘 Resumai Technical Specification (v1.0.Final)
+# 📘 Lesume Technical Specification (v1.0.Final)
 
 ## 1. 개요 (Overview)
 
-- **Product Name:** 레스유메 (Resumai)
+- **Product Name:** 레스유메 (Lesume)
 - **Description:** 한국어 이력서(PDF)를 업로드하면 AI(Gemini Pro)를 통해 **요약(Summarization) → 번역(Translation) → 포맷팅(Formatting)** 과정을 거쳐 영문 이력서로 변환해 주는 Micro SaaS.
 - **Target:** 글로벌 취업을 희망하거나 급하게 영문 이력서가 필요한 한국인 구직자.
 

@@ -1,3 +1,4 @@
+
 # dependencies
 /node_modules
 /.pnp
@@ -32,3 +33,6 @@ ts-debug.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# secrets
+client_secret_*.json
