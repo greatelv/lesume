@@ -11,6 +11,9 @@
 - **Product Name:** 레스유메 (Lesume)
 - **Definition:** 한국어 이력서(PDF)를 입력받아 AI(LLM)를 통해 **요약(Summarization), 번역(Translation), 서식화(Formatting)**를 수행하여 Global Standard에 맞는 영문 이력서(PDF)로 변환해 주는 Micro SaaS.
 - **Core Value:** "나를 채용해야 하는 이유"를 증명하는 마케팅 브로셔 관점의 영문 이력서 자동 생성.
+- **Design Philosophy:**
+  - **Aesthetic:** Vercel & Linear-inspired Modern & Minimal Design.
+  - **Values:** Clean typography, monochrome color palette with subtle accents, decluttered UI, and smooth micro-interactions.
 - **Target Audience:**
 - 글로벌 기업 지원자 (영어 이력서 작성에 부담을 느끼는 한국인).
 - 급하게 영문 이력서를 제출해야 하는 직장인.
@@ -20,9 +23,9 @@
 
 이 프로젝트는 다음 기술 스택을 기반으로 구현되어야 한다.
 
-- **Frontend/Backend:** Next.js 15 (App Router), TypeScript, Tailwind CSS, Shadcn UI.
+- **Frontend/Backend:** Next.js 16 (App Router), TypeScript, **Tailwind CSS**, **Shadcn UI**.
 - **Database:** PostgreSQL (Supabase or Neon), Prisma ORM.
-- **Auth:** Auth.js v5 (Kakao OAuth).
+- **Auth:** Auth.js v5 (Google OAuth).
 - **AI Engine:** Google Gemini Pro API (Structured Output).ㅎ
 - **Storage:** AWS S3 Compatible (Supabase Storage) - PDF 파일 관리.
 - **Payments:** PortOne or Toss Payments (Subscription Model).
@@ -59,11 +62,11 @@ AI가 구현해야 할 기능을 **Epic(기능 단위)**별로 분류하고, 명
 
 ## Epic 1: Auth & Onboarding
 
-**Story 1.1: 카카오 로그인**
+**Story 1.1: 구글 로그인**
 
-- **As a** 방문자, **I want to** 카카오 계정으로 간편하게 가입/로그인하고 싶다.
+- **As a** 방문자, **I want to** 구글 계정으로 간편하게 가입/로그인하고 싶다.
 - **Acceptance Criteria:**
-- 로그인 버튼 클릭 시 카카오 OAuth 창이 떠야 한다.
+- 로그인 버튼 클릭 시 구글 OAuth 창이 떠야 한다.
 - 가입 시 `Users` 테이블에 정보가 없으면 생성하고, `Plans`는 기본적으로 'FREE'로 설정된다.
 - 로그인 성공 시 `/dashboard`로 리다이렉트 된다.
 

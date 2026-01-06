@@ -14,13 +14,32 @@
 
 ## 2. 기술 스택 (Tech Stack)
 
-- **Frontend & Backend:** Next.js 15 (App Router), TypeScript
+- **Frontend & Backend:** Next.js 16 (App Router), TypeScript, **Tailwind CSS**.
+- **UI Library:** **Shadcn UI** (New York Style, Zinc Theme) - for accessible, composable components.
+- **Styling:** CSS Modules (for custom complex styles only), otherwise Tailwind Utility First.
 - **Database:** PostgreSQL (Supabase or Neon)
 - **ORM:** Prisma
 - **AI Engine:** Google Gemini Pro API
-- **Auth:** Auth.js (NextAuth) v5 - Kakao Provider
+- **Auth:** Auth.js (NextAuth) v5 - Google Provider
 - **Storage:** AWS S3 compatible (Supabase Storage or Cloudflare R2) - PDF 원본 및 결과물 저장
 - **Payment:** PortOne or Tosspayments (Billing Key 방식)
+
+---
+
+## 2.1 UI/UX Design Strategy (Linear/Vercel Style)
+
+- **Theme:** Minimalist, Content-First.
+- **Typography:** **Inter** (Google Fonts) - Clean, legible, professional.
+- **Color Palette:**
+  - **Background:** Pure White (`#FFFFFF`) / Hints of Gray (`#FAFAFA`).
+  - **Foreground:** High contrast Text (`#171717`), Muted Text (`#737373`).
+  - **Accents:** Subtle Primary Brand Color (e.g., Indigo or Monochrome Black).
+  - **Borders:** Thin, subtle borders (`#E5E5E5`).
+- **Components:**
+  - **Buttons:** Sharp or slightly rounded corners, subtle hover states.
+  - **Inputs:** Minimalist with focus rings.
+  - **Cards:** Flat or subtle shadow (`shadow-sm`).
+- **Interactions:** Fast, snappy transitions, skeleton loaders instead of spinners.
 
 ---
 
@@ -37,7 +56,7 @@
 | **Users** | `id`            | UUID     | PK                         |
 |           | `email`         | String   | Unique Email               |
 |           | `name`          | String   | 사용자 이름                |
-|           | `provider`      | String   | 'kakao'                    |
+|           | `provider`      | String   | 'google'                   |
 |           | `provider_id`   | String   | OAuth Sub ID               |
 |           | `phone_number`  | String   | 이력서용 연락처 (Optional) |
 |           | `linkedin_url`  | String   | 이력서 헤더용 (Optional)   |
@@ -158,7 +177,7 @@ Next.js App Router 사용을 가정합니다.
 
 1. **Phase 1 (Core MVP):**
 
-- 회원가입/로그인 (Kakao).
+- 회원가입/로그인 (Google).
 - PDF 텍스트 추출 + Gemini API 연동 (기본 프롬프트).
 - 기본 이력서 CRUD 및 상태 저장.
 - 무료 플랜(하드코딩된 Quota) 적용.

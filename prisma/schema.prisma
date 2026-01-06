@@ -1,0 +1,204 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// --------------------------------------
+// 1. Users & Auth
+// --------------------------------------
+
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  name          String?
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+
+  // Custom fields
+  provider      String? // Legacy, use Account
+  provider_id   String? // Legacy, use Account
+  phone_number  String?
+  linkedin_url  String?
+  portfolio_url String?
+
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+
+  subscriptions Subscription[]
+  resumes       Resume[]
+
+  @@map("users")
+}
+
+model Account {
+  id                 String  @id @default(uuid())
+  userId             String  @map("user_id")
+  type               String
+  provider           String
+  providerAccountId  String  @map("provider_account_id")
+  refresh_token      String? @db.Text
+  access_token       String? @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String? @db.Text
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  sessionToken String   @unique @map("session_token")
+  userId       String   @map("user_id")
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// --------------------------------------
+// 2. Subscription & Billing
+// --------------------------------------
+
+enum PlanCode {
+  FREE
+  STANDARD
+  PRO
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  PAST_DUE
+  CANCELED
+}
+
+model Plan {
+  code          PlanCode @id
+  monthly_quota Int
+  max_resumes   Int
+
+  subscriptions Subscription[]
+
+  @@map("plans")
+}
+
+model Subscription {
+  id                   String             @id @default(uuid())
+  user_id              String
+  plan_code            PlanCode
+  status               SubscriptionStatus
+  current_period_start DateTime
+  current_period_end   DateTime
+  cancel_at_period_end Boolean            @default(false)
+  billing_key          String?
+  created_at           DateTime           @default(now())
+  updated_at           DateTime           @updatedAt
+
+  user User @relation(fields: [user_id], references: [id])
+  plan Plan @relation(fields: [plan_code], references: [code])
+
+  @@map("subscriptions")
+}
+
+// --------------------------------------
+// 3. Resume Core (State Machine)
+// --------------------------------------
+
+enum ResumeStatus {
+  IDLE
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+enum ResumeStep {
+  UPLOAD
+  SUMMARY
+  TRANSLATE
+  DONE
+}
+
+enum ResumeTemplate {
+  MODERN
+  CLASSIC
+  MINIMAL
+}
+
+model Resume {
+  id                String         @id @default(uuid())
+  user_id           String
+  title             String?
+  original_file_url String
+  raw_text          String?        @db.Text
+  target_role       String?
+  status            ResumeStatus   @default(IDLE)
+  failure_message   String?
+  current_step      ResumeStep     @default(UPLOAD)
+  is_one_click      Boolean        @default(false)
+  selected_template ResumeTemplate @default(MODERN)
+  created_at        DateTime       @default(now())
+  updated_at        DateTime       @updatedAt
+
+  user            User             @relation(fields: [user_id], references: [id])
+  workExperiences WorkExperience[]
+
+  @@map("resumes")
+}
+
+// --------------------------------------
+// 4. Resume Details (Data)
+// --------------------------------------
+
+model WorkExperience {
+  id              String  @id @default(uuid())
+  resume_id       String
+  company_name_kr String?
+  company_name_en String?
+  role_kr         String?
+  role_en         String?
+  start_date      String? // YYYY.MM
+  end_date        String? // YYYY.MM or Present
+  bullets_kr      Json? // JSONB: ["성과1", "성과2"]
+  bullets_en      Json? // JSONB: ["Result1", "Result2"]
+  order           Int     @default(0)
+
+  resume Resume @relation(fields: [resume_id], references: [id], onDelete: Cascade)
+
+  @@map("work_experiences")
+}
+
+// --------------------------------------
+// 5. Usage Logs (Quota Tracking)
+// --------------------------------------
+model UsageLog {
+  id        String   @id @default(uuid())
+  user_id   String
+  amount    Int // e.g., 1 or 2
+  action    String // 'SUMMARIZE', 'TRANSLATE', 'ONE_CLICK'
+  used_at   DateTime @default(now())
+
+  @@map("usage_logs")
+}
